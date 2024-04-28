@@ -17,7 +17,7 @@ Run the following command to install dependencies: `npm install`
 
 ### Running the Application
 
-Once the dependencies are installed, start the development server: `npm start`
+Once the dependencies are installed, start the development server: `npm run dev`
 Visit the link presented in the terminal to view the application.
 
 ## Technologies Used
@@ -25,6 +25,12 @@ Visit the link presented in the terminal to view the application.
 - Vite
 - React
 - Tailwind CSS
+
+## Troubleshooting
+
+### If the command `npm run dev` fails:
+
+This project was built using Node v21.7.3 (npm v10.5.0), see if downloading those versions resolve the issue.
 
 ## Note
 
