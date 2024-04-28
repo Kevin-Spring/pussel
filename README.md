@@ -1,6 +1,10 @@
 # Puzzle
 
+<<<<<<< HEAD
 ## Overview
+=======
+### Run `npm install && npm start` in the project directory and visit the link presented in the terminal
+>>>>>>> aaa39a6ccfec6240e21e4e4fcbbfcc9c3c9b3e39
 
 A classic slide puzzle, which consists of 15 tiles and one empty space. Arrange the order with the empty space being last and you win!
 
