@@ -18,6 +18,7 @@ Run the following command to install dependencies: `npm install`
 ### Running the Application
 
 Once the dependencies are installed, start the development server: `npm run dev`
+
 Visit the link presented in the terminal to view the application.
 
 ## Technologies Used
