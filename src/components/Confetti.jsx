@@ -17,12 +17,10 @@ const Confetti = ({
   };
 
   return (
-    <>
-      <span
-        className={`${color} confetti w-4 h-4 fixed left-2/4 -top-1/4 origin-top-left`}
-        style={customStyles}
-      ></span>
-    </>
+    <span
+      className={`${color} confetti w-4 h-4 fixed left-2/4 -top-1/4 origin-top-left`}
+      style={customStyles}
+    ></span>
   );
 };
 

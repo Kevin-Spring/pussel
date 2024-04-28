@@ -40,11 +40,10 @@ export default class Game {
 
     // Shuffle the numbers array using the Fisher-Yates shuffle algorithm
     for (let i = numbers.length - 1; i > 0; i--) {
-      // Generate a random index between 0 and i (inclusive)
-      const j = Math.floor(Math.random() * (i + 1));
-
-      // Swap the elements at indices i and j in the numbers array
-      [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      // Generate a random index between 0 and i
+      const randomNumber = Math.floor(Math.random() * (i + 1));
+      // Swap the elements at indices index and randomNumber in the numbers array
+      [numbers[i], numbers[randomNumber]] = [numbers[randomNumber], numbers[i]];
     }
 
     // Place the shuffled numbers onto the board
@@ -73,7 +72,7 @@ export default class Game {
       if (board[row][c] === 0) {
         // Starts the loop from the column where the empty tile (0) was found
         for (let i = c; i < col; i++) {
-          // Shift tiles to the left located in the same row as the zero
+          // Shift tiles to the left located in the same row as the zero by replacing the value with the adjacent one
           board[row][i] = board[row][i + 1];
         }
         board[row][col] = 0; // Place the clicked tile at the empty position
@@ -90,11 +89,10 @@ export default class Game {
 
     for (let c = col + 1; c < board[row].length; c++) {
       if (board[row][c] === 0) {
-        // Shift tiles to the right
         for (let i = c; i > col; i--) {
           board[row][i] = board[row][i - 1];
         }
-        board[row][col] = 0; // Place the clicked tile at the empty position
+        board[row][col] = 0;
         moved = true;
         break;
       }
@@ -108,11 +106,10 @@ export default class Game {
 
     for (let r = row + 1; r < board.length; r++) {
       if (board[r][col] === 0) {
-        // Shift tiles downwards
         for (let i = r; i > row; i--) {
           board[i][col] = board[i - 1][col];
         }
-        board[row][col] = 0; // Place the clicked tile at the empty position
+        board[row][col] = 0;
         moved = true;
         break;
       }
@@ -126,11 +123,10 @@ export default class Game {
 
     for (let r = row - 1; r >= 0; r--) {
       if (board[r][col] === 0) {
-        // Shift tiles upwards
         for (let i = r; i < row; i++) {
           board[i][col] = board[i + 1][col];
         }
-        board[row][col] = 0; // Place the clicked tile at the empty position
+        board[row][col] = 0;
         moved = true;
         break;
       }
