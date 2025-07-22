@@ -25,7 +25,7 @@ Visit the link presented in the terminal to view the application.
 
 - Vite
 - React
-- Tailwind CSS
+- Scss
 
 ## Troubleshooting
 

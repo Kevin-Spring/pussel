@@ -1,0 +1,43 @@
+// Reused styling for sliders
+@mixin swiper-editor {
+	--spacing-gutter-x: var(--spacing-col-gutter);
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-row);
+	width: 100%;
+	overflow: unset; // Unset overflow hidden to allow next and prev slides to be visible
+	contain: layout; // Same effect as overflow: hidden on section
+
+	.wp-block-qte-theme-listing-post {
+		position: relative;
+		z-index: 1;
+		box-sizing: content-box;
+		display: flex;
+		width: 100%;
+		height: 100%;
+		transition-timing-function: var(--swiper-wrapper-transition-timing-function, initial);
+		transition-property: transform;
+
+		li {
+			position: relative;
+			flex-shrink: 0;
+			width: calc((100% / var(--slides-to-show-base)) + (var(--spacing-gutter-x) / var(--slides-to-show-base)));
+			height: auto; // Remove to not use the same height for all slides
+			padding-right: var(--spacing-gutter-x);
+
+			&:last-child {
+				width: calc((100% / var(--slides-to-show-base)) + (var(--spacing-gutter-x) / var(--slides-to-show-base)) - var(--spacing-gutter-x));
+				padding-right: 0;
+			}
+
+			&:has(article[style='display: none;']) {
+				display: none;
+			}
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+}

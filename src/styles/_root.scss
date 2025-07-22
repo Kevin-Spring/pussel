@@ -1,0 +1,84 @@
+@use 'sass:math';
+@use '@lib' as *;
+
+:root {
+	// ======================================================================
+	// General: Setup for wp-admin gutenberg editor
+	// ======================================================================
+	--max-width: #{$max-width}px;
+	--row-width: min((100% - (#{$margin-to-edge} * 2)), #{$max-width}px);
+	--bp-mobile: #{$bp-md};
+	--bp-tablet: #{$bp-lg};
+
+	// ======================================================================
+	// Sizes: Generate fluid sizes in rem for responsive typography and spacing.
+	// Each size variable is calculated with scaling, ensuring text and spaces adjusts with viewport.
+	// ======================================================================
+	@each $name, $size in $font-size {
+		--fs-#{$name}: #{$size};
+	}
+
+	@each $name, $space in $spacing {
+		--spacing-#{$name}: #{$space};
+	}
+
+	@each $name, $space in $font-space {
+		--font-space-#{$name}: #{$space};
+	}
+
+	@each $name, $value in $font-family {
+		--ff-#{$name}: #{$value};
+	}
+
+	@each $name, $fw in $font-weight {
+		--fw-#{$name}: #{$fw};
+	}
+
+	@each $name, $ls in $letter-spacing {
+		--ls-#{$name}: #{$ls};
+	}
+
+	@each $name, $lh in $line-height {
+		--lh-#{$name}: #{$lh};
+	}
+
+	@each $name, $color in $colors {
+		--color-#{$name}: #{$color};
+	}
+
+	@each $name, $value in $transition-duration {
+		--duration-#{$name}: #{$value};
+	}
+
+	@each $name, $value in $transition-timing {
+		--timing-#{$name}: #{$value};
+	}
+
+	@each $name, $value in $shadows {
+		--shadow-#{$name}: #{$value};
+	}
+
+	@each $name, $value in $radius {
+		--br-#{$name}: #{$value};
+	}
+}
+
+[data-theme='dark'] {
+	@each $name, $color in $dark-theme-colors {
+		--color-#{$name}: #{$color};
+	}
+}
+
+@media (prefers-reduced-motion) {
+	*,
+	*::before,
+	*::after {
+		background-attachment: initial !important;
+		transition-delay: -1ms !important;
+		transition-duration: 0.001ms !important;
+		animation-duration: 0.001ms !important;
+		animation-delay: -1ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+	}
+}

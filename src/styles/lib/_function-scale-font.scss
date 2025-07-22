@@ -1,0 +1,12 @@
+@use 'sass:math';
+
+@function scale-font($size, $scaling, $base-fs, $max-width, $threshold: 14) {
+	@if $size <= $threshold {
+		@return max(
+			#{$size}px,
+			clamp(#{math.div($size * $scaling, $base-fs)}rem, calc(#{math.div($size, $max-width)} * 100vw), #{math.div($size * (1 + (1 - $scaling)), $base-fs)}rem)
+		);
+	} @else {
+		@return clamp(#{math.div($size * $scaling, $base-fs)}rem, calc(#{math.div($size, $max-width)} * 100vw), #{math.div($size * (1 + (1 - $scaling)), $base-fs)}rem);
+	}
+}

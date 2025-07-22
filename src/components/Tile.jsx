@@ -8,8 +8,8 @@ const Tile = ({ rowIndex, columnIndex, columnValue }) => {
   // Conditionally add classnames to tiles which isn't the empty tile (0)
   const tileClasses =
     columnValue === 0
-      ? "opacity-0 invisible"
-      : "board-game-tile text-white-100 font-bold text-lg py-1.5 px-2.5 flex justify-center items-center bg-black rounded aspect-square transition-colors duration-200 ease-in-out text-white hover:cursor-pointer hover:bg-stone-800 active:bg-stone-700";
+      ? "btn btn-square btn-ghost"
+      : "btn btn-square btn-primary";
 
   return (
     <button

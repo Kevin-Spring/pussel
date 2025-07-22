@@ -1,0 +1,34 @@
+@use '@lib' as *;
+@use '@extends' as *;
+
+button,
+.btn {
+	@extend %btn;
+}
+
+.btn-square {
+	@extend %btn-square;
+}
+
+.btn-small {
+	@extend %btn-small;
+}
+
+.btn-large {
+	@extend %btn-large;
+}
+
+.btn-block {
+	@extend %btn-block;
+}
+
+@mixin btn-variant-class($name) {
+	.btn-#{$name} {
+		@extend %btn-#{$name};
+	}
+}
+
+// Button color variants
+@each $name in $button-variations {
+	@include btn-variant-class($name);
+}

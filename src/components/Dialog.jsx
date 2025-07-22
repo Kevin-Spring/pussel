@@ -1,15 +1,21 @@
-import Button from "./Button";
+import { useContext } from 'react';
+import GameContext from '../utils/GameContext';
+import Game from '../game/gameLogic';
+import Button from './Button';
 
-const Dialog = ({ resetGame, title }) => {
-  return (
-    <dialog
-      open
-      className="fixed left-2/4 top-2/4 -translate-y-2/4 -translate-x-2/4 backdrop-blur-md bg-white/50 p-8 py-20 rounded text-white font-semibold text-center w-96 max-w-md max-[420px]:max-w-72 border flex justify-center items-center flex-col"
-    >
-      <h2 className="text-4xl text-black font-bold">{title}</h2>
-      <Button text={"Nytt spel"} resetGame={resetGame} />
-    </dialog>
-  );
+const Dialog = ({ title }) => {
+	const { game, setGame } = useContext(GameContext);
+
+	const resetGame = () => {
+		setGame(Game.startGame());
+	};
+
+	return (
+		<div className={`${game.gameOver ? 'open' : 'hide'} dialog-window`}>
+			<h2 className="dialog-window-title">{title}</h2>
+			<Button className={'btn-primary'} text={'Nytt spel'} onClick={resetGame} />
+		</div>
+	);
 };
 
 export default Dialog;

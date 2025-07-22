@@ -1,0 +1,14 @@
+@use '@lib' as *;
+@use '@extends' as *;
+
+a {
+	@extend %link;
+}
+
+a:not([href], [class]) {
+	&,
+	&:hover {
+		color: inherit;
+		text-decoration: none;
+	}
+}
