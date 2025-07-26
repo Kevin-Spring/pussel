@@ -1,0 +1,70 @@
+@use '@lib' as *;
+
+%mobile-toggle {
+	--line-width: 1em;
+	--line-height: 2px;
+	--line-space: 3px;
+
+	&:not(.mobile-menu-open) {
+		&:focus-visible,
+		&:hover {
+			.mobile-dashes {
+				&::before {
+					width: 90%;
+				}
+
+				&::after {
+					width: 70%;
+				}
+			}
+		}
+
+		.mobile-dashes {
+			background: currentcolor;
+
+			&::before {
+				transform: rotate(0) translateY(calc(var(--line-height) + var(--line-space)));
+			}
+
+			&::after {
+				transform: rotate(0) translateY(calc(-1 * (var(--line-height) + var(--line-space))));
+			}
+		}
+	}
+
+	.mobile-toggle-inner {
+		pointer-events: none;
+		touch-action: none;
+	}
+
+	.mobile-dashes {
+		position: relative;
+		width: var(--line-width);
+		height: var(--line-height);
+		background: transparent;
+		transition: var(--duration-fast) var(--timing-base);
+		transition-property: background-color;
+
+		&::before,
+		&::after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+			width: var(--line-width);
+			height: var(--line-height);
+			content: '';
+			background: currentcolor;
+			transition: var(--duration-fast) var(--timing-base);
+			transition-property: width, transform;
+		}
+
+		&::before {
+			transform: rotate(45deg) translateY(0);
+		}
+
+		&::after {
+			transform: rotate(-45deg) translateY(0);
+		}
+	}
+}

@@ -1,0 +1,39 @@
+@use '@lib' as *;
+@use '@extends' as *;
+
+@each $heading in $headings {
+	#{$heading},
+	.#{$heading} {
+		@extend %#{$heading};
+	}
+}
+
+@each $size in $text-sizes {
+	.text-#{$size},
+	.#{$size} {
+		@extend %text-#{$size};
+	}
+}
+
+ul,
+ol {
+	padding-inline-start: 1.62em;
+
+	&:not(:last-child) {
+		margin-block-end: 1.6em;
+	}
+}
+
+li {
+	&:not(:last-child, .menu-item, .row-search-results-content *, .wp-block-qte-theme-listing *) {
+		margin-block-end: 1em;
+	}
+}
+
+:is(p, ul, ol) + :is(h2, h3, h4, h5, h6) {
+	margin-top: var(--spacing-row);
+}
+
+.page-title {
+	text-align: center;
+}

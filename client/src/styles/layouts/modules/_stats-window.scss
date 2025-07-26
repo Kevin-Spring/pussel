@@ -1,0 +1,43 @@
+@use '@lib' as *;
+@use '@extends' as *;
+
+.stats-window {
+	@extend %card-popup;
+
+	right: 0;
+
+	.result-title {
+		margin-block-end: var(--spacing-2);
+	}
+
+	.results-list {
+		padding-inline-start: 1em;
+
+		.sm,
+		.tn,
+		.h6 {
+			margin-block-end: 0;
+		}
+	}
+
+	.result-header {
+		display: flex;
+		flex-flow: row wrap;
+		gap: var(--spacing-1);
+		align-items: center;
+		margin-block-end: var(--spacing-1);
+		font-weight: var(--fw-bold);
+	}
+
+	.result-item {
+		&::marker {
+			font-weight: var(--fw-bold);
+		}
+
+		.result-details {
+			display: flex;
+			flex-flow: row wrap;
+			gap: var(--spacing-1);
+		}
+	}
+}

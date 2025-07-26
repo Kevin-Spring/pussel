@@ -1,0 +1,26 @@
+@use '@lib' as *;
+@use './silent-card' as *;
+
+%card-popup {
+	--card-bg: var(--color-background-1);
+	--card-py: var(--spacing-3);
+	--card-px: var(--spacing-3);
+
+	@extend %card;
+
+	position: absolute;
+	top: calc(var(--header-height) - (var(--row-py) * 2) + var(--spacing-2));
+	z-index: 3;
+	visibility: hidden;
+	min-width: min(100vw, #{size(300)});
+	box-shadow: var(--shadow-base);
+	opacity: 0;
+	transition:
+		opacity var(--duration-base) var(--timing-base),
+		visibility var(--duration-base) var(--timing-base);
+
+	&.open {
+		visibility: visible;
+		opacity: 1;
+	}
+}

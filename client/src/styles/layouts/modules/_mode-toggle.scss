@@ -1,0 +1,7 @@
+@use '@lib' as *;
+
+.mode-toggle {
+	display: flex;
+	flex-flow: row wrap;
+	gap: var(--spacing-2);
+}

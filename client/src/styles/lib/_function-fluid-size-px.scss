@@ -1,0 +1,6 @@
+$max-bp-width: 1512 !default;
+$min-bp-width: 320 !default;
+
+@function fluid-size-px($min-value, $max-value) {
+	@return calc(#{$min-value}px + (#{$max-value} - #{$min-value}) * (100vw - #{$min-bp-width}px) / (#{$max-bp-width} - #{$min-bp-width}));
+}

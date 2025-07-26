@@ -1,0 +1,8 @@
+@use '@lib' as *;
+
+.game-meta {
+	display: flex;
+	flex-flow: row wrap;
+	gap: var(--spacing-2);
+	align-items: center;
+}

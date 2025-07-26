@@ -1,0 +1,20 @@
+@use '@lib' as *;
+@use '@extends' as *;
+
+.gamerules-window {
+	@extend %card-popup;
+
+	left: 0;
+
+	.gamerules-title {
+		margin-block-end: var(--spacing-2);
+	}
+
+	ul {
+		padding-inline-start: 0;
+
+		li {
+			list-style-type: none;
+		}
+	}
+}

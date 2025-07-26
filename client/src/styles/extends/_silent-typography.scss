@@ -1,0 +1,81 @@
+@use '@lib' as *;
+
+%heading {
+	font-family: var(--heading-ff, #{$heading-ff});
+	color: var(--heading-text, #{$heading-text});
+}
+
+%paragraph {
+	font-family: var(--body-ff, #{$body-ff});
+	font-weight: var(--body-fw, #{$body-fw});
+	line-height: var(--body-lh, #{$body-lh});
+	color: var(--body-text, #{$body-text});
+	letter-spacing: var(--body-ls, #{$body-ls});
+}
+
+@each $heading in $headings {
+	%#{$heading} {
+		@extend %heading;
+
+		margin-block-end: var(--font-space-#{$heading});
+		font-size: var(--fs-#{$heading});
+		font-weight: var(--fw-#{$heading});
+		line-height: var(--lh-#{$heading});
+		letter-spacing: var(--ls-#{$heading});
+
+		&:not(:last-child) {
+			margin-block-end: var(--heading-mb, var(--mb-#{$heading}));
+		}
+	}
+
+	%#{$heading}-m-0 {
+		--heading-mb: 0;
+
+		@extend %#{$heading};
+	}
+}
+
+@each $size in $text-sizes {
+	%text-#{$size} {
+		@extend %paragraph;
+
+		font-size: var(--fs-#{$size});
+
+		&:not(:last-child) {
+			margin-block-end: var(--font-space-#{$size});
+		}
+	}
+
+	%text-#{$size}-m-0 {
+		@extend %paragraph;
+
+		margin-block-end: 0;
+		font-size: var(--fs-#{$size});
+	}
+}
+
+%link {
+	font-weight: var(--link-fw, #{$link-fw});
+	color: var(--link-text, #{$link-text});
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-decoration-color: currentcolor;
+	text-underline-offset: 0.3em;
+
+	&:visited {
+		--link-text: var(--link-text-visited, #{$link-text-visited});
+	}
+
+	&:hover,
+	&:focus-visible {
+		--link-text: var(--link-text-hover, #{$link-text-hover});
+
+		text-decoration-color: transparent;
+	}
+
+	&:active {
+		--link-text: var(--link-text-active, #{$link-text-active});
+
+		text-decoration-color: transparent;
+	}
+}

@@ -1,0 +1,19 @@
+@use '@lib' as *;
+
+.header {
+	--row-py: var(--spacing-row);
+	--row-width: min((100% - (#{$margin-to-edge-header} * 2)), #{$max-width}px);
+
+	.col nav {
+		display: flex;
+		gap: var(--spacing-3);
+		justify-content: space-between;
+	}
+
+	.stats-container,
+	.controls-container {
+		display: flex;
+		gap: var(--spacing-3);
+		align-items: center;
+	}
+}

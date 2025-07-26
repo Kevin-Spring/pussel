@@ -1,0 +1,5 @@
+@use '@extends' as *;
+
+.mobile-toggle {
+	@extend %mobile-toggle;
+}

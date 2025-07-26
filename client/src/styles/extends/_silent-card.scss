@@ -1,0 +1,8 @@
+@use '@lib' as *;
+
+%card {
+	padding: var(--card-py, var(--spacing-1)) var(--card-px, var(--spacing-1));
+	background-color: var(--card-bg, transparent);
+	border: 2px solid var(--card-bc, var(--color-primary));
+	border-radius: var(--card-br, var(--br-md));
+}

@@ -1,0 +1,90 @@
+@use 'sass:math';
+
+$breakpoint: 1512 !default;
+$breakpoint-max: 1512 !default;
+$breakpoint-min: 390 !default;
+$factor: 10 !default;
+$rem-value: 16 !default;
+$rem-unit: rem !default;
+$variable-unit: vw !default;
+
+// The main function to calculate fluid values and covert unit px to rem
+@function fluid-value($value) {
+	// Default value to 0 if it's 0
+	@if $value == 0 {
+		@return 0;
+	}
+
+	// Remove unit and proceed with value as a number
+	$value: math.div($value, 1);
+
+	// Handle values smaller than the base value (handle them in rem)
+	@if math.abs($value) <= $rem-value {
+		// Return the value in rem
+		@return #{math.div($value, $rem-value)}#{$rem-unit};
+	} @else {
+		// Calculate the minimum value
+		$value-min: $rem-value + math.div(math.abs($value) - $rem-value, $factor);
+
+		// Calculate the difference between $value and the minimum value
+		$value-diff: math.abs($value) - $value-min;
+
+		// Calculate the maximum value
+		$value-max: math.abs($value) + math.div($value-diff, $breakpoint - $value-min) * ($breakpoint-max - $breakpoint);
+		$value-max: math.round($value-max);
+
+		// Remove the units again for calculations
+		$min-width: math.div($value-min, $rem-value);
+		$max-width: math.div($value-max, $rem-value);
+
+		// Handle negative values
+		$min-width: if($value < 0, -$min-width, $min-width);
+		$max-width: if($value < 0, -$max-width, $max-width);
+
+		// Calculate the variable width between 0 and $breakpoint
+		$variable-width: #{math.div($value-diff * 100, $breakpoint)}#{$variable-unit};
+
+		// Determine the final value based on conditions
+		@return if(
+			$value < 0,
+			max(#{$max-width}#{$rem-unit}, #{$min-width}#{$rem-unit} - $variable-width),
+			min(#{$max-width}#{$rem-unit}, #{$min-width}#{$rem-unit} + $variable-width)
+		);
+	}
+}
+
+@function fluid-linear-value($value-min, $value-max) {
+	// Remove unit for calculations
+	$value-min: math.div($value-min, 1);
+	$value-max: math.div($value-max, 1);
+
+	// Calculate difference between values
+	$value-diff: math.abs($value-max) - math.abs($value-min);
+
+	// Calculate min and max width based on breakpoints
+	$min-width: math.abs($value-min) - (math.div($value-diff * $breakpoint-min, ($breakpoint - $breakpoint-min)));
+	$max-width: math.abs($value-max) + (math.div($value-diff * ($breakpoint-max - $breakpoint), ($breakpoint - $breakpoint-min)));
+	$max-width: math.round($max-width);
+
+	// Format values with proper units
+	$min-width: #{math.div($min-width, $rem-value)}#{$rem-unit};
+	$max-width: #{math.div($max-width, $rem-value)}#{$rem-unit};
+
+	// Handle negative values
+	$min-width: if($value-min < 0, -$min-width, $min-width);
+	$max-width: if($value-max < 0, -$max-width, $max-width);
+
+	// Calculate variable width and adjust min/max values accordingly
+	$variable-width: #{math.div(($value-diff * 100), ($breakpoint - $breakpoint-min))}#{$variable-unit};
+	$val: if($value-min < 0, max($max-width, $min-width - $variable-width), min($max-width, $min-width + $variable-width));
+
+	@return $val;
+}
+
+@function size($value, $max-value: false) {
+	@if not $max-value {
+		@return fluid-value($value);
+	} @else {
+		@return fluid-linear-value($value, $max-value);
+	}
+}
