@@ -1,5 +1,0 @@
-@mixin as-utilities($prefix, $name) {
-	.#{$prefix}-#{$name} {
-		@content;
-	}
-}

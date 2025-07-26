@@ -1,7 +1,0 @@
-@use '@lib' as *;
-
-@each $name, $value in $radius {
-	.br-#{$name} {
-		border-radius: #{$value};
-	}
-}
