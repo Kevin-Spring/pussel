@@ -23,6 +23,9 @@ button,
 }
 
 .empty {
+	--btn-bc: transparent;
+	--btn-bg: var(--color-ghost-hover);
+
 	flex-grow: 1;
 	flex-shrink: 0;
 	font-size: 0;

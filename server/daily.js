@@ -3,7 +3,7 @@ function seedRandom(seed) {
 	return x - Math.floor(x);
 }
 
-export function getDailySeed() {
+function getDailySeed() {
 	const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
 	const seed = today.split('-').join(''); // e.g., 20250726
 	const tiles = Array.from({ length: 16 }, (_, i) => i); // 4x4 puzzle
@@ -16,3 +16,5 @@ export function getDailySeed() {
 
 	return tiles;
 }
+
+module.exports = { getDailySeed };

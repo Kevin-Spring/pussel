@@ -1,9 +1,9 @@
 export default class Game {
-	// Setup the state of the game
-	static startGame() {
+	static createRandomGameState() {
 		return {
-			gameOver: false,
 			board: this.randomizeBoard(),
+			gameOver: false,
+			hasStarted: false,
 		};
 	}
 
@@ -61,15 +61,6 @@ export default class Game {
 		}
 
 		return board;
-	}
-
-	static createRandomGameState() {
-		const newGame = Game.startGame();
-		return {
-			board: newGame.board,
-			gameOver: false,
-			hasStarted: false,
-		};
 	}
 
 	// Move all tiles to the right of the empty position up to the clicked tile position

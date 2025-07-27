@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Stats from './Stats';
 
-const StatsToggle = ({ moveCount, timeElapsed, gameOver, mode }) => {
+const StatsToggle = ({ resultsVersion }) => {
 	const [open, setOpen] = useState(false);
 	const wrapperRef = useRef(null);
 
@@ -30,7 +30,7 @@ const StatsToggle = ({ moveCount, timeElapsed, gameOver, mode }) => {
 				</div>
 			</button>
 
-			<Stats moveCount={moveCount} timeElapsed={timeElapsed} gameOver={gameOver} mode={mode} open={open} />
+			<Stats open={open} resultsVersion={resultsVersion} />
 		</div>
 	);
 };

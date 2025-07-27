@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react';
 import { getLeaderboardResults } from '../services/getLeaderboard';
 import { GAME_MODES } from '../utils/gameModes';
 
-function Stats({ open }) {
+function Stats({ open, resultsVersion }) {
 	const [results, setResults] = useState([]);
 
 	useEffect(() => {
 		getLeaderboardResults()
 			.then(setResults)
 			.catch((err) => console.error('Failed to load leaderboard:', err));
-	}, []);
+	}, [resultsVersion]);
 
 	return (
 		<aside className={`stats-window ${open ? 'open' : ''}`}>
 			<h2 className="h5 result-title">Leaderboard</h2>
 			<ol className="results-list">
 				{results.map((r, i) => {
-					const date = new Date(r.date).toLocaleDateString(); // locale-sensitive
+					const date = new Date(r.date).toLocaleDateString();
 					const minutes = Math.floor(r.time / 60);
 					const seconds = r.time % 60;
 					const formattedTime = r.time ? `${minutes}:${seconds.toString().padStart(2, '0')}` : 'N/A';

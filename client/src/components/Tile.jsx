@@ -12,6 +12,8 @@ const Tile = ({ rowIndex, columnIndex, columnValue }) => {
 		<button
 			className={tileClasses}
 			key={columnIndex}
+			tabIndex={columnValue === 0 ? -1 : 0}
+			aria-label={columnValue === 0 ? 'Empty tile' : `Tile ${columnValue}`}
 			onClick={() => {
 				if (!game.gameOver) {
 					if (!game.hasStarted) {

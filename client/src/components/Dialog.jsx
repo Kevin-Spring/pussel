@@ -6,7 +6,7 @@ const Dialog = ({ title, message, resetGame }) => {
 	const { game } = useContext(GameContext);
 
 	return (
-		<div className={`${game.gameOver ? 'open' : 'hide'} dialog-window`}>
+		<div className={`${game.gameOver ? 'open' : 'hide'} dialog-window`} role="dialog" aria-modal="true">
 			<h2 className="dialog-window-title">{title}</h2>
 			{message && <p className="dialog-message">{message}</p>}
 			<Button className={'btn-primary'} text={'New game'} onClick={resetGame} />

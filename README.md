@@ -12,7 +12,7 @@ This is a small full-stack slide puzzle game built with **React** (frontend) and
 - **Stats Tracking** – Tracks moves and time for each win
 - **Persistent Results** – Results saved in `results.json` via Express API
 - **Lightweight Backend** – Simple Express server for handling stats and seed logic
-- **Confetti Animation** 🎉
+- **Keyboard navigation**
 - **Dark/Light Theme Toggle** 🌗
 
 ---
@@ -46,9 +46,6 @@ This is a small full-stack slide puzzle game built with **React** (frontend) and
 ### Install and Run
 
 ```bash
-# In the root directory
-npm install
-
 # Start the Express backend
 cd server
 npm install
@@ -77,10 +74,10 @@ puzzle/
 │   ├── components/      # UI components (Board, Stats, Buttons, etc.)
 │   ├── game/            # Game logic (movement, win check, etc.)
 │   ├── services/        # Requests to backend endpoints
-│   ├── utils/           # Shared context
+│   ├── utils/           # Shared context and various utility data
 │   └── App.jsx          # Main app
 ├── server/              # Express backend
-│   ├── results.json     # Stores all game results
+│   ├── results.json     # Stores all game results to simulate database
 │   └── index.js         # Express server and endpoints
 ├── README.md
 └── ...
@@ -120,7 +117,6 @@ Adds a new result:
 
 ## 📈 Future Improvements
 
-- Track individual user sessions or IDs
 - Use a proper DB (e.g., SQLite or MongoDB)
 - Add difficulty settings
 

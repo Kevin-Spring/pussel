@@ -28,7 +28,7 @@ const RulesModal = () => {
 				<h2 className="gamerules-title h5">How to Play</h2>
 				<ul>
 					<li className="sm">🔁 Swap tiles by clicking or tapping on them.</li>
-					<li className="sm">🎯 Goal: Arrange all tiles in the correct order.</li>
+					<li className="sm">🎯 Goal: Arrange all tiles in the correct order, 1 to 15 with the empty tile in the last position.</li>
 					<li className="sm">⏱️ The timer starts with your first move.</li>
 					<li className="sm">📅 Daily puzzles are the same for everyone each day.</li>
 					<li className="sm">🎲 Random puzzles can be played anytime!</li>

@@ -14,13 +14,13 @@ import { saveResult } from './services/postResults';
 import { GAME_MODES } from './utils/gameModes';
 
 function App() {
-	const [game, setGame] = useState(Game.startGame());
-	const [dailySeed, setDailySeed] = useState(null);
+	const [game, setGame] = useState(Game.createRandomGameState());
 	const [moveCount, setMoveCount] = useState(0);
 	const [timeElapsed, setTimeElapsed] = useState(0);
 	const [timerRunning, setTimerRunning] = useState(false);
 	const [mode, setMode] = useState(GAME_MODES.DAILY);
 	const [dialogMessage, setDialogMessage] = useState('');
+	const [resultsVersion, setResultsVersion] = useState(0);
 	const headerRef = useRef(null);
 
 	useEffect(() => {
@@ -38,17 +38,9 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		if (mode !== GAME_MODES.DAILY) return;
-
-		fetchDailyPuzzle()
-			.then((board) => {
-				setGame({ board, gameOver: false, hasStarted: false });
-				setMoveCount(0);
-				setTimeElapsed(0);
-			})
-			.catch((err) => {
-				console.error('Failed to fetch daily seed:', err);
-			});
+		if (mode === GAME_MODES.DAILY) {
+			initializeDailyGame();
+		}
 	}, [mode]);
 
 	useEffect(() => {
@@ -70,7 +62,9 @@ function App() {
 			date: new Date().toISOString(),
 		};
 
-		saveResult(result).catch((err) => console.error('Failed to save result', err));
+		saveResult(result)
+			.then(() => setResultsVersion((prev) => prev + 1))
+			.catch((err) => console.error('Failed to save result', err));
 	}, [game.gameOver]);
 
 	useEffect(() => {
@@ -84,24 +78,42 @@ function App() {
 	}, [timerRunning]);
 
 	const resetGame = (newMode) => {
+		const modeToSet = newMode || mode;
+
 		setMoveCount(0);
 		setTimeElapsed(0);
 		setTimerRunning(false);
 		setDialogMessage('');
-		setDailySeed(null);
+		setMode(modeToSet);
 
-		if (newMode === GAME_MODES.DAILY) {
-			setMode(GAME_MODES.DAILY);
-			setGame(Game.startGame());
+		if (modeToSet === GAME_MODES.DAILY) {
+			fetchDailyPuzzle()
+				.then((board) => {
+					setGame({ board, gameOver: false, hasStarted: false });
+				})
+				.catch((err) => {
+					console.error('Failed to fetch daily seed:', err);
+					setGame(Game.createRandomGameState());
+				});
 		} else {
 			setGame(Game.createRandomGameState());
-			setMode(GAME_MODES.RANDOM);
 		}
 	};
 
 	const cheatSolveCurrent = () => {
 		setGame({ board: Game.solvedBoard, gameOver: true, hasStarted: true });
 		setTimerRunning(false);
+	};
+
+	const initializeDailyGame = () => {
+		fetchDailyPuzzle()
+			.then((board) => {
+				setGame({ board, gameOver: false, hasStarted: false });
+				setMoveCount(0);
+				setTimeElapsed(0);
+				setDialogMessage('');
+			})
+			.catch((err) => console.error('Failed to fetch daily seed:', err));
 	};
 
 	return (
@@ -114,20 +126,21 @@ function App() {
 				timeElapsed,
 				setTimeElapsed,
 				setTimerRunning,
+				mode,
 			}}
 		>
 			<main className="main">
-				<header className="header" ref={headerRef}>
+				<header className="header" ref={headerRef} aria-label="header">
 					<div className="row">
 						<div className="col col-12">
-							<nav>
+							<nav aria-label="Game information">
 								<div className="controls-container">
 									<ThemeSwitcher />
 									<GameRules />
 								</div>
 								<div className="stats-container">
-									<GameMeta moveCount={moveCount} timeElapsed={timeElapsed} />
-									<StatsToggle moveCount={moveCount} timeElapsed={timeElapsed} gameOver={game.gameOver} mode={mode} />
+									<GameMeta />
+									<StatsToggle resultsVersion={resultsVersion} />
 								</div>
 							</nav>
 						</div>
@@ -147,13 +160,12 @@ function App() {
 
 					<div className="row">
 						<div className="col col-12 offset-r-3 offset-l-3">
-							<Board game={game} mode={mode} resetGame={resetGame} cheatSolveCurrent={cheatSolveCurrent} />
+							<Board resetGame={resetGame} cheatSolveCurrent={cheatSolveCurrent} />
 						</div>
 					</div>
 				</section>
 
-				<Dialog title="Congrats!!" message={dialogMessage} resetGame={resetGame} />
-
+				<Dialog title="Congrats!!" message={dialogMessage} resetGame={() => resetGame(mode)} />
 				{game.gameOver && <ConfettiLayer />}
 			</main>
 		</GameContext.Provider>
