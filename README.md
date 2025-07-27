@@ -117,6 +117,7 @@ Adds a new result:
 
 ## 📈 Future Improvements
 
+- Relocated app.jsx logic into custom hooks for greater readability
 - Use a proper DB (e.g., SQLite or MongoDB)
 - Add difficulty settings
 
