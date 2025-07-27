@@ -1,38 +1,134 @@
-# Puzzle
+# 🧩 Slide Puzzle – Full Stack React/Express App
 
-## Overview
+This is a small full-stack slide puzzle game built with **React** (frontend) and **Express** (backend), intended as a portfolio demo to showcase coding style, logic handling, and basic backend functionality.
 
-A classic slide puzzle, which consists of 15 tiles and one empty space. Arrange the order with the empty space being last and you win!
+## ✨ Features
 
-## Getting Started
+- **Classic 4x4 Slide Puzzle**
+- **Daily Puzzle Mode** – Same board for all users each day (based on UTC date)
+- **Random Puzzle Mode** – For regular play and testing
+- **Victory Detection** – Detects win condition dynamically
+- **Win Feedback** – Shows alerts on victory (daily or random)
+- **Stats Tracking** – Tracks moves and time for each win
+- **Persistent Results** – Results saved in `results.json` via Express API
+- **Lightweight Backend** – Simple Express server for handling stats and seed logic
+- **Confetti Animation** 🎉
+- **Dark/Light Theme Toggle** 🌗
 
-### Installation
+---
 
-1. Clone the repository: `git clone <repository-url>`
-2. Navigate to the project directory: `cd project-directory`
+## 🧠 Tech Stack
 
-### Installation of Dependencies
+### Frontend
 
-Run the following command to install dependencies: `npm install`
+- React (with Vite)
+- Functional components & hooks (`useState`, `useEffect`)
+- Context API for global game state
+- Modular component design (Rows, Tiles, Dialogs, Stats, etc.)
 
-### Running the Application
+### Backend
 
-Once the dependencies are installed, start the development server: `npm run dev`
+- Node.js + Express
+- JSON file-based "database"
+- API endpoints for:
+  - `/daily-seed` – returns a consistent daily puzzle
+  - `/results` – GET and POST routes to manage result history
 
-Visit the link presented in the terminal to view the application.
+---
 
-## Technologies Used
+## 🚀 Getting Started
 
-- Vite
-- React
-- Scss
+### Prerequisites
 
-## Troubleshooting
+- Node.js (v18+ recommended)
+- npm
 
-### If the command `npm run dev` fails:
+### Install and Run
 
-This project was built using Node v21.7.3 (npm v10.5.0), see if downloading those versions resolve the issue.
+```bash
+# In the root directory
+npm install
 
-## Note
+# Start the Express backend
+cd server
+npm install
+node index.js
+```
 
-Have fun!! :D
+```bash
+# In a second terminal, start the React frontend
+cd client
+npm install
+npm run dev
+```
+
+### Default Ports
+
+- Frontend: [http://localhost:5173](http://localhost:5173)
+- Backend API: [http://localhost:3001](http://localhost:3001)
+
+---
+
+## 📁 Project Structure
+
+```
+pussel/
+├── client/              # React frontend
+│   ├── components/      # UI components (Board, Stats, Buttons, etc.)
+│   ├── game/            # Game logic (movement, win check, etc.)
+│   ├── services/        # Requests to backend endpoints
+│   ├── utils/           # Shared context
+│   └── App.jsx          # Main app
+├── server/              # Express backend
+│   ├── results.json     # Stores all game results
+│   └── index.js         # Express server and endpoints
+├── README.md
+└── ...
+```
+
+---
+
+## 🛠 Backend API
+
+### `GET /daily-seed`
+
+Returns a seed array (length 16) for today's puzzle based on date-based hashing.
+
+```json
+{ "seed": [5, 1, 3, 2, 4, 6, ...] }
+```
+
+### `GET /results`
+
+Returns an array of all stored puzzle results.
+
+### `POST /results`
+
+Adds a new result:
+
+```json
+{
+	"moves": 42,
+	"time": 58,
+	"isDaily": true,
+	"mode": "daily",
+	"date": "2025-07-26T14:20:00.000Z"
+}
+```
+
+---
+
+## 📈 Future Improvements
+
+- Track individual user sessions or IDs
+- Use a proper DB (e.g., SQLite or MongoDB)
+- Add difficulty settings
+
+---
+
+## 👋 Author
+
+Developed by **Kevin** as part of a code showcase.
+Feel free to explore, run, and adapt the project!
+
+---
