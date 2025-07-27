@@ -72,7 +72,7 @@ npm run dev
 ## 📁 Project Structure
 
 ```
-pussel/
+puzzle/
 ├── client/              # React frontend
 │   ├── components/      # UI components (Board, Stats, Buttons, etc.)
 │   ├── game/            # Game logic (movement, win check, etc.)
